@@ -1,0 +1,525 @@
+/* ============================================================
+   JORGE DEL AGUILA — DESIGN SYSTEM
+   main.css
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+/* ============================================================
+   1. RESET & BASE
+   ============================================================ */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Aplicamos el ocultamiento a html y body juntos para que ningún navegador se escape */
+html,
+body {
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari and Opera */
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+img,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ============================================================
+   2. DESIGN TOKENS — :root
+   ============================================================ */
+:root {
+
+    /* --------------------------------------------------
+     2.1  COLOR PALETTE
+  -------------------------------------------------- */
+
+    /* Neutrals — La base del sistema */
+    --color-bg: #FEFFF8;
+    /* Crema casi blanco — fondo principal */
+    --color-ink: #0A0A0A;
+    /* Negro profundo — texto principal */
+    --color-warm: #332F29;
+    /* Tierra cálido — detalles secundarios */
+
+    /* Brand / Accent */
+    --color-accent: #FF6432;
+    /* Naranja sunset — el alma de la paleta */
+    --color-accent-dim: rgba(255, 100, 50, 0.12);
+    /* Glow suave */
+
+    /* Surfaces */
+    --color-surface: #F5F5EE;
+    /* Fondo alternativo, cards */
+    --color-overlay: #0A0A0A;
+    /* Overlay de transición entre páginas */
+
+    /* Semantic — Texto con opacidades */
+    --color-ink-80: rgba(10, 10, 10, 0.80);
+    --color-ink-60: rgba(10, 10, 10, 0.60);
+    --color-ink-40: rgba(10, 10, 10, 0.40);
+    --color-ink-20: rgba(10, 10, 10, 0.20);
+    --color-ink-10: rgba(10, 10, 10, 0.10);
+
+    /* Inverse — Para secciones oscuras (dark outro, nav blend, etc.) */
+    --color-ink-inv: #FEFFF8;
+    --color-ink-inv-40: rgba(254, 255, 248, 0.40);
+    --color-ink-inv-20: rgba(254, 255, 248, 0.20);
+
+    /* Rules / Dividers */
+    --color-rule: rgba(10, 10, 10, 0.10);
+    --color-rule-inv: rgba(254, 255, 248, 0.12);
+
+    /* --------------------------------------------------
+     2.2  TYPOGRAPHY
+  -------------------------------------------------- */
+
+    /* Font Stacks */
+    --font-primary: 'DM Sans', 'Neue Montreal', -apple-system, sans-serif;
+    --font-display: 'Neue Montreal', 'DM Sans', sans-serif;
+    --font-screamer: 'FKScreamer', 'BebasNeue', sans-serif;
+    /* titulos gigantes */
+    --font-mono: 'DM Mono', 'Courier New', monospace;
+
+    /* Type Scale — Fluid (sin media queries, escala entre 375px y 1920px) */
+    --text-2xs: clamp(0.625rem, 0.55vw, 0.75rem);
+    /* 10–12px  — labels, index */
+    --text-xs: clamp(0.75rem, 0.70vw, 0.875rem);
+    /* 12–14px  — metadata, caps */
+    --text-sm: clamp(0.875rem, 0.85vw, 1rem);
+    /* 14–16px  — body small */
+    --text-base: clamp(1rem, 1.10vw, 1.25rem);
+    /* 16–20px  — body copy */
+    --text-lg: clamp(1.25rem, 1.40vw, 1.5rem);
+    /* 20–24px  — lead text */
+    --text-xl: clamp(1.5rem, 2.00vw, 2rem);
+    /* 24–32px  — subheadings */
+    --text-2xl: clamp(2rem, 3.00vw, 3.5rem);
+    /* 32–56px  — section titles */
+    --text-3xl: clamp(3rem, 5.00vw, 6rem);
+    /* 48–96px  — hero titles */
+    --text-4xl: clamp(4.5rem, 8.00vw, 9rem);
+    /* 72–144px — display big */
+    --text-huge: clamp(6rem, 13.00vw, 16rem);
+    /* 96–256px — hero screamer */
+
+    /* Font Weights */
+    --weight-light: 300;
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+    --weight-black: 900;
+
+    /* Line Heights */
+    --leading-none: 0.85;
+    /* letras gigantes */
+    --leading-tight: 1.0;
+    /* headings */
+    --leading-snug: 1.2;
+    /* subtítulos */
+    --leading-normal: 1.5;
+    /* body copy */
+    --leading-loose: 1.8;
+    /* texto pequeño, legibilidad */
+
+    /* Letter Spacing */
+    --tracking-tight: -0.04em;
+    /* headings grandes */
+    --tracking-normal: 0em;
+    --tracking-wide: 0.06em;
+    /* labels */
+    --tracking-wider: 0.14em;
+    /* caps, metadata */
+    --tracking-widest: 0.24em;
+    /* eyebrows estilo editorial */
+
+    /* --------------------------------------------------
+     2.3  SPACING SCALE
+  -------------------------------------------------- */
+
+    /* Base: 4px grid */
+    --space-1: 0.25rem;
+    /*  4px */
+    --space-2: 0.5rem;
+    /*  8px */
+    --space-3: 0.75rem;
+    /* 12px */
+    --space-4: 1rem;
+    /* 16px */
+    --space-5: 1.25rem;
+    /* 20px */
+    --space-6: 1.5rem;
+    /* 24px */
+    --space-8: 2rem;
+    /* 32px */
+    --space-10: 2.5rem;
+    /* 40px */
+    --space-12: 3rem;
+    /* 48px */
+    --space-16: 4rem;
+    /* 64px */
+    --space-20: 5rem;
+    /* 80px */
+    --space-24: 6rem;
+    /* 96px */
+    --space-32: 8rem;
+    /* 128px */
+    --space-40: 10rem;
+    /* 160px */
+
+    /* Fluid Spacing — para gaps entre secciones grandes */
+    --gap-section: clamp(8rem, 18vh, 18rem);
+    /* entre secciones */
+    --gap-block: clamp(4rem, 10vh, 10rem);
+    /* entre bloques */
+    --gap-element: clamp(2rem, 4vh, 4rem);
+    /* entre elementos */
+
+    /* --------------------------------------------------
+     2.4  LAYOUT & GRID
+  -------------------------------------------------- */
+
+    /* Padding lateral del sitio */
+    --px: clamp(1rem, 4vw, 4.5rem);
+    --px-sm: clamp(1rem, 3vw, 3rem);
+    /* pantallas medianas */
+    --px-lg: clamp(4rem, 6vw, 8rem);
+    /* secciones especiales */
+
+    /* Padding vertical de secciones */
+    --py: clamp(5rem, 10vh, 10rem);
+
+    /* Container max-width */
+    --container: 1920px;
+    --container-text: 860px;
+    /* para bloques de texto, legibilidad */
+
+    /* Navigation */
+    --nav-height: 5rem;
+    --nav-height-mobile: 4rem;
+
+    /* Grid Columns */
+    --cols-12: repeat(12, 1fr);
+    --cols-6: repeat(6, 1fr);
+    --cols-4: repeat(4, 1fr);
+    --cols-2: repeat(2, 1fr);
+    --col-gap: clamp(0.75rem, 1.5vw, 1.5rem);
+
+    /* --------------------------------------------------
+     2.5  BORDERS & RADII
+  -------------------------------------------------- */
+
+    --radius-sm: 0.5rem;
+    /*  8px */
+    --radius-md: 1rem;
+    /* 16px */
+    --radius-lg: 1.5rem;
+    /* 24px */
+    --radius-xl: 2rem;
+    /* 32px */
+    --radius-full: 999px;
+    /* pills */
+
+    --border-thin: 1px solid var(--color-rule);
+    --border-thick: 2px solid var(--color-ink);
+
+    /* --------------------------------------------------
+     2.6  SHADOWS & DEPTH
+  -------------------------------------------------- */
+
+    --shadow-sm: 0 1px 3px rgba(10, 10, 10, 0.06),
+        0 1px 2px rgba(10, 10, 10, 0.04);
+    --shadow-md: 0 4px 12px rgba(10, 10, 10, 0.08),
+        0 2px 4px rgba(10, 10, 10, 0.04);
+    --shadow-lg: 0 16px 40px rgba(10, 10, 10, 0.10),
+        0 8px 16px rgba(10, 10, 10, 0.06);
+    --shadow-xl: 0 32px 80px rgba(10, 10, 10, 0.14);
+    --shadow-glow: 0 0 40px rgba(255, 100, 50, 0.18);
+    /* accent glow */
+
+    /* --------------------------------------------------
+     2.7  TRANSITIONS & EASING
+  -------------------------------------------------- */
+
+    /* Duraciones */
+    --duration-instant: 80ms;
+    --duration-fast: 160ms;
+    --duration-base: 320ms;
+    --duration-slow: 600ms;
+    --duration-slower: 900ms;
+    --duration-page: 1200ms;
+    /* transiciones entre páginas */
+
+    /* Curvas — Inspiradas en GSAP power/expo */
+    --ease-out: cubic-bezier(0.16, 1, 0.30, 1);
+    /* expo.out — rápido y suave */
+    --ease-in: cubic-bezier(0.70, 0, 0.84, 0);
+    /* expo.in */
+    --ease-in-out: cubic-bezier(0.87, 0, 0.13, 1);
+    /* expo.inOut */
+    --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* back.out — rebote sutil */
+    --ease-linear: linear;
+
+    /* Shortcuts — transition property lista para usar */
+    --transition-base: all var(--duration-base) var(--ease-out);
+    --transition-fast: all var(--duration-fast) var(--ease-out);
+    --transition-slow: all var(--duration-slow) var(--ease-out);
+    --transition-color: color var(--duration-fast) var(--ease-out),
+        background-color var(--duration-fast) var(--ease-out),
+        border-color var(--duration-fast) var(--ease-out),
+        opacity var(--duration-fast) var(--ease-out);
+
+    /* --------------------------------------------------
+     2.8  Z-INDEX STACK
+  -------------------------------------------------- */
+
+    --z-below: -1;
+    --z-base: 1;
+    --z-content: 10;
+    --z-sticky: 20;
+    --z-drawer: 30;
+    --z-nav: 50;
+    --z-modal: 80;
+    --z-cursor: 100;
+    --z-overlay: 200;
+    --z-transition: 999;
+    --z-lock: 1000;
+
+    /* --------------------------------------------------
+     2.9  BREAKPOINTS (como referencia — usar con @media)
+  -------------------------------------------------- */
+    /*
+    --bp-sm:   480px
+    --bp-md:   768px
+    --bp-lg:   992px
+    --bp-xl:  1200px
+    --bp-2xl: 1500px
+    --bp-3xl: 1920px
+  */
+
+    /* --------------------------------------------------
+     2.10  COMPONENT TOKENS (reutilizables en componentes)
+  -------------------------------------------------- */
+
+    /* Preloader */
+    --preloader-bg: var(--color-ink);
+    --preloader-text: var(--color-bg);
+    --preloader-accent: var(--color-accent);
+
+    /* Cursor */
+    --cursor-size: 28px;
+    --cursor-dot-size: 4px;
+    --cursor-color: var(--color-ink);
+    --cursor-blend: multiply;
+
+    /* Nav */
+    --nav-bg: transparent;
+    --nav-blend: difference;
+    /* mix-blend-mode para que invierta sobre cualquier fondo */
+    --nav-color-blend: #ffffff;
+    /* el blanco se invierte a negro automáticamente */
+
+    /* Scroll progress bar */
+    --progress-color: var(--color-accent);
+    --progress-size: 2px;
+
+    /* Project cards */
+    --card-radius: var(--radius-lg);
+    --card-shadow: var(--shadow-lg);
+
+    /* Transition overlay */
+    --overlay-fill: #1C1D20;
+
+    /* Footer "Let's have a chat" */
+    --footer-accent: var(--color-accent);
+
+}
+
+/* ============================================================
+   3. UTILITY CLASSES — Helpers globales
+   ============================================================ */
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--px);
+}
+
+/* Texto solo visible para screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Ocultar scrollbar globalmente donde no aplique */
+.no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Overflow helpers */
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.clip-text {
+    overflow: hidden;
+    display: block;
+}
+
+/* Will-change performance hint (usar con moderación) */
+.will-transform {
+    will-change: transform;
+}
+
+.will-opacity {
+    will-change: opacity;
+}
+
+/* Flex helpers */
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Aspect ratios */
+.aspect-square {
+    aspect-ratio: 1 / 1;
+}
+
+.aspect-video {
+    aspect-ratio: 16 / 9;
+}
+
+.aspect-portrait {
+    aspect-ratio: 3 / 4;
+}
+
+.aspect-landscape {
+    aspect-ratio: 4 / 3;
+}
+
+.aspect-cinema {
+    aspect-ratio: 21 / 9;
+}
+
+/* Image fill */
+.img-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Divider */
+.rule {
+    width: 100%;
+    height: 1px;
+    background: var(--color-rule);
+}
+
+.rule--dark {
+    background: var(--color-ink);
+}
+
+/* Label — estilo editorial (eyebrow) */
+.label {
+    font-size: var(--text-2xs);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-ink-60);
+}
+
+/* ============================================================
+   4. ANIMACIÓN BASE — Para GSAP / Vue Transitions
+   ============================================================ */
+
+/* Los elementos que GSAP va a animar parten ocultos */
+[data-animate] {
+    opacity: 0;
+}
+
+/* Smooth scroll via Lenis (no CSS scroll-behavior) */
+html.lenis {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+/* ============================================================
+   5. SELECTION
+   ============================================================ */
+
+::selection {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+}
