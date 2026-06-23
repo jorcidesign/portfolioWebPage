@@ -1,46 +1,44 @@
 'use client';
 
-import { useRef, useEffect, useMemo } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { about } from '@/data/about';
 import { AtomCreativeHeading } from '@/components/atoms/AtomCreativeHeading';
 import { AtomHoverReveal } from '@/components/atoms/AtomHoverReveal';
 import styles from './OrgHeroSection.module.scss';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export function OrgHeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
-  const rafId = useRef<number | null>(null);
 
   const skills = useMemo(
     () => about.hero.skills.split('/').map((s) => s.trim()).filter(Boolean),
-    []
+    [],
   );
 
+  // Title parallax via ScrollTrigger (plays nicely with Lenis)
   useEffect(() => {
-    function onScroll() {
-      if (!titleRef.current) return;
-      if (rafId.current) return;
-
-      rafId.current = requestAnimationFrame(() => {
-        const offset = window.scrollY * -0.4;
-        if (titleRef.current) {
-          titleRef.current.style.transform = `translateY(${offset}px)`;
-        }
-        rafId.current = null;
+    const ctx = gsap.context(() => {
+      gsap.to(titleRef.current, {
+        yPercent: -22,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5,
+        },
       });
-    }
+    }, sectionRef);
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (rafId.current) {
-        cancelAnimationFrame(rafId.current);
-      }
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section className={styles['org-hero-section']}>
+    <section ref={sectionRef} className={styles['org-hero-section']}>
       <div className={styles['hero__title']} ref={titleRef}>
         <AtomCreativeHeading title={about.hero.title} />
       </div>
@@ -73,9 +71,7 @@ export function OrgHeroSection() {
           />
         </div>
 
-        <div className={styles['hero__location']}>
-          {about.hero.location}
-        </div>
+        <div className={styles['hero__location']}>{about.hero.location}</div>
       </div>
 
       <div

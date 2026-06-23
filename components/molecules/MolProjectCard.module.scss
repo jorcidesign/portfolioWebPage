@@ -1,0 +1,132 @@
+@use 'styles/mixins' as *;
+
+.mol-project-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  text-decoration: none;
+  color: inherit;
+  cursor: none;
+
+  @include hover {
+    .image-inner {
+      transform: scale(1.04);
+    }
+
+    .title {
+      opacity: 0.7;
+    }
+  }
+}
+
+// ─── Image ────────────────────────────────────────────
+.image {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.image-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 800ms var(--ease-out);
+  will-change: transform;
+}
+
+.image-el {
+  object-fit: cover;
+}
+
+// ─── Info ─────────────────────────────────────────────
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-ink-60);
+}
+
+.year {
+  font-size: var(--text-2xs);
+  font-family: var(--font-mono);
+  color: var(--color-ink-40);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.description {
+  font-size: var(--text-sm);
+  color: var(--color-ink-60);
+  line-height: var(--leading-normal);
+  margin-top: var(--space-1);
+}
+
+// ─── Variants ─────────────────────────────────────────
+.variant-grid {
+  .image {
+    aspect-ratio: var(--card-ratio, 4 / 3);
+  }
+}
+
+.variant-hero {
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(2.5rem, 4vw, 5rem);
+  // Card width: fills most of the viewport so adjacent card is peeking
+  width: clamp(700px, 78vw, 1100px);
+  flex-shrink: 0;
+
+  .image {
+    flex: 0 0 55%;
+    height: clamp(260px, 48vh, 520px);
+    border-radius: var(--radius-lg);
+  }
+
+  .info {
+    flex: 1;
+    gap: var(--space-5);
+    min-width: 0;
+  }
+
+  .title {
+    font-size: clamp(1.75rem, 3.5vw, 3.5rem);
+  }
+
+  // ── Dark background color overrides ────────────────
+  .category {
+    color: var(--color-ink-inv-40);
+  }
+
+  .year {
+    color: var(--color-ink-inv-40);
+  }
+
+  .title {
+    color: var(--color-ink-inv);
+  }
+
+  .description {
+    color: var(--color-ink-inv-40);
+  }
+}

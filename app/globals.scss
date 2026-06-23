@@ -14,6 +14,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+// ─── Lenis smooth scroll ──────────────────────────────────────
 html.lenis {
   height: auto;
 }
@@ -26,6 +27,14 @@ html.lenis {
   overflow: hidden;
 }
 
+// ─── Custom cursor: hide native on hover-capable devices ──────
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
+// ─── Body states ──────────────────────────────────────────────
 body {
   font-family: var(--font-primary);
   font-size: var(--text-base);
@@ -36,6 +45,12 @@ body {
   overflow-x: hidden;
 }
 
+body.is-loading {
+  overflow: hidden;
+  pointer-events: none;
+}
+
+// ─── Defaults ─────────────────────────────────────────────────
 img, video, canvas, svg {
   display: block;
   max-width: 100%;

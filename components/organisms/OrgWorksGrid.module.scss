@@ -1,0 +1,138 @@
+@use 'styles/mixins' as *;
+
+.org-works-grid {
+  min-height: 100svh;
+  padding-top: calc(var(--nav-height) + var(--gap-block));
+  padding-bottom: var(--gap-section);
+  padding-inline: var(--px);
+  background: var(--color-bg);
+}
+
+// ─── Page header ────────────────────────────────────────
+.header {
+  max-width: var(--container);
+  margin: 0 auto var(--gap-block);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.header-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.eyebrow {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-ink-60);
+}
+
+.total {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-ink-40);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-none);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-ink);
+}
+
+// ─── Filter bar ─────────────────────────────────────────
+.filter-bar {
+  max-width: var(--container);
+  margin: 0 auto var(--gap-element);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  padding-bottom: var(--space-6);
+  border-bottom: var(--border-thin);
+}
+
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-ink-60);
+  font-family: var(--font-primary);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition:
+    background-color 250ms var(--ease-out),
+    border-color 250ms var(--ease-out),
+    color 250ms var(--ease-out);
+
+  @include hover {
+    border-color: var(--color-ink-40);
+    color: var(--color-ink);
+  }
+
+  &.active {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-ink-inv);
+  }
+}
+
+.pill-count {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  opacity: 0.6;
+}
+
+.filter-total {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink-40);
+
+  @include respond(sm) {
+    display: none;
+  }
+}
+
+// ─── Grid ───────────────────────────────────────────────
+.grid {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 2.5vw, 2.5rem);
+
+  @include respond(md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// First card in "All" view spans full width for editorial rhythm
+.grid-item-wide {
+  grid-column: 1 / -1;
+
+  @include respond(md) {
+    grid-column: auto;
+  }
+}
+
+.grid-item {}
+
+.empty {
+  grid-column: 1 / -1;
+  font-size: var(--text-sm);
+  color: var(--color-ink-40);
+  padding: var(--space-16) 0;
+  text-align: center;
+}

@@ -1,0 +1,39 @@
+.mol-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.align-center {
+  align-items: center;
+  text-align: center;
+}
+
+.eyebrow {
+  display: block;
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-ink-60);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  white-space: pre-line;
+}
+
+.description {
+  font-size: var(--text-base);
+  color: var(--color-ink-60);
+  line-height: var(--leading-normal);
+  max-width: 480px;
+}
+
+.align-center .description {
+  margin-inline: auto;
+}

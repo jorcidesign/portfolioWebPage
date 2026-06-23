@@ -8,16 +8,17 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "gsap": "^3.14.2",
     "@studio-freight/lenis": "^1.0.42",
+    "gsap": "^3.14.2",
     "next": "^15.2.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "sass": "^1.86.0",
     "@types/node": "^22.14.0",
     "@types/react": "^19.1.0",
+    "playwright": "^1.61.0",
+    "sass": "^1.86.0",
     "typescript": "^5.8.0"
   }
 }
