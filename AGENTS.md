@@ -1,24 +1,21 @@
-# Portfolio Web — Nuxt 4 Project
+# Portfolio Web — Next.js 15 Project
 
 ## Stack
-Nuxt 4, Vue 3 (Composition API, `<script setup>`), TypeScript, Nuxt Content, GSAP, Lenis.
+Next.js 15, React 19, TypeScript, SCSS, GSAP, Lenis.
 
 ## Architecture
-Atomic Design: `atoms/` → `organisms/` → pages. Components auto-imported via Nuxt (no manual imports).
+Atomic Design: `atoms/` → `organisms/` → pages. CSS Modules for scoped styles.
 
 ## Directories
-- `app/` — main source
-  - `components/` — UI components (atoms/, organisms/)
-  - `pages/` — routes (auto-routing)
-  - `composables/` — shared logic
-  - `data/` — static data (projects, about, contact)
-  - `content/` — Nuxt Content managed
-  - `assets/css/` — global styles only
+- `app/` — App Router pages and layouts
+- `components/` — UI components (atoms/, organisms/)
+- `data/` — static data (projects, about, contact)
+- `hooks/` — React hooks (useSmoothScroll)
+- `styles/` — SCSS design tokens and utilities
 - `public/` — static files
 
 ## Conventions
-- Prefer composables over mixins
-- Use `definePageMeta` for page metadata
-- Use `useState` / `useAsyncData` for state & data fetching
-- CSS via `main.css` (Tailwind-like custom utilities)
-- No Options API unless strictly needed
+- Prefer hooks over HOCs
+- Use `'use client'` only when browser APIs needed
+- CSS Modules for component styles, global SCSS for design system
+- No Tailwind — custom design system with CSS variables

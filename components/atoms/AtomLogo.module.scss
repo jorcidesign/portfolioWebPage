@@ -1,0 +1,28 @@
+.atom-logo {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1;
+  overflow: visible;
+}
+
+.logo-first {
+  flex-shrink: 0;
+}
+
+.logo-last-wrapper {
+  display: inline-flex;
+  align-items: baseline;
+  overflow: visible;
+  width: 0;
+  white-space: nowrap;
+}
+
+.logo-char {
+  display: inline-block;
+}
