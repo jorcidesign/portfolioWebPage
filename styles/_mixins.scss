@@ -1,0 +1,20 @@
+// ─── Breakpoints ──────────────────────────────────────
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;
+$bp-2xl: 1500px;
+
+@mixin respond($bp) {
+  @if $bp == sm { @media (max-width: $bp-sm) { @content; } }
+  @if $bp == md { @media (max-width: $bp-md) { @content; } }
+  @if $bp == lg { @media (max-width: $bp-lg) { @content; } }
+  @if $bp == xl { @media (max-width: $bp-xl) { @content; } }
+  @if $bp == 2xl { @media (max-width: $bp-2xl) { @content; } }
+}
+
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { @content; }
+  }
+}

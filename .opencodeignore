@@ -1,12 +1,8 @@
 node_modules/
-.nuxt/
-.output/
-.nitro/
-.cache/
-dist/
+.next/
 public/
 *.lock
 package-lock.json
-codigo_completo.txt
 README.md
 tsconfig.json
+next-env.d.ts

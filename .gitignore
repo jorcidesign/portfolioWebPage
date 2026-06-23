@@ -1,13 +1,13 @@
-# Nuxt dev/build outputs
-.output
-.data
-.nuxt
-.nitro
-.cache
-dist
+# Next.js
+.next/
+out/
 
 # Node dependencies
 node_modules
+
+# Build
+*.tsbuildinfo
+next-env.d.ts
 
 # Logs
 logs
@@ -25,4 +25,3 @@ logs
 
 # Temporary backup files
 codigo_completo.txt
-

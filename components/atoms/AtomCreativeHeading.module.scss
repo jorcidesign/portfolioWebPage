@@ -1,0 +1,46 @@
+.atom-creative-heading {
+  font-family: var(--font-screamer);
+  font-size: clamp(2.5rem, 6.5vw, 9rem);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-none);
+  text-transform: uppercase;
+  color: var(--color-ink);
+
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  white-space: nowrap;
+
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+.heading-char {
+  display: inline-block;
+  will-change: transform, opacity;
+  animation: char-drop 650ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes char-drop {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 992px) {
+  .atom-creative-heading {
+    flex-wrap: wrap;
+    white-space: normal;
+    font-size: clamp(2.8rem, 12vw, 5.5rem);
+    text-align: center;
+    justify-content: center;
+  }
+}
