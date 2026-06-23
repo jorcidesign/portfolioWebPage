@@ -1,0 +1,113 @@
+@use 'styles/mixins' as *;
+
+.org-services-section {
+  padding-block: var(--gap-section);
+  padding-inline: var(--px);
+  background: var(--color-bg);
+}
+
+.inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2.5fr;
+  gap: clamp(4rem, 8vw, 10rem);
+  align-items: start;
+
+  @include respond(md) {
+    grid-template-columns: 1fr;
+    gap: var(--gap-element);
+  }
+}
+
+.header {
+  position: sticky;
+  top: calc(var(--nav-height) + 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  @include respond(md) {
+    position: static;
+  }
+}
+
+.eyebrow {
+  display: block;
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-ink-60);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-ink);
+}
+
+// ─── List ─────────────────────────────────────────────
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-rule);
+  transform-origin: left center;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: start;
+  padding-block: clamp(2rem, 4vh, 3.5rem);
+
+  @include respond(sm) {
+    grid-template-columns: 2.5rem 1fr;
+  }
+}
+
+.number {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink-40);
+  padding-top: 0.3em;
+  flex-shrink: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.service-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-ink);
+}
+
+.description {
+  font-size: var(--text-sm);
+  color: var(--color-ink-60);
+  line-height: var(--leading-normal);
+  max-width: 50ch;
+}
+
+.tags {
+  padding-top: 0.5em;
+
+  @include respond(sm) {
+    display: none;
+  }
+}
