@@ -1,0 +1,26 @@
+.atom-menu-handler {
+  position: relative;
+  width: 3.5rem;
+  height: 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.handler-text {
+  position: absolute;
+  display: block;
+  width: 100%;
+  text-align: center;
+  will-change: transform, opacity;
+}

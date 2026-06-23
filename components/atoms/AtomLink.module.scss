@@ -1,0 +1,31 @@
+.atom-link {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: var(--weight-medium);
+  color: inherit;
+  text-decoration: none;
+  letter-spacing: var(--tracking-normal);
+  line-height: 1;
+}
+
+.link-text {
+  position: relative;
+}
+
+.link-text::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.atom-link:hover .link-text::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
