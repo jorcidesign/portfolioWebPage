@@ -1,0 +1,100 @@
+// Only shown on pointer devices
+@media (hover: hover) and (pointer: fine) {
+
+  .outer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid #fff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: var(--z-cursor);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    mix-blend-mode: difference;
+    will-change: transform;
+    // Shape/size transitions only (NOT transform — transform is driven by rAF)
+    transition:
+      width 320ms var(--ease-out),
+      height 320ms var(--ease-out),
+      background 320ms var(--ease-out),
+      opacity 160ms ease,
+      border-radius 320ms var(--ease-out),
+      border-color 160ms ease;
+  }
+
+  .outer.visible { opacity: 1; }
+
+  .inner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    background: #fff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: var(--z-cursor);
+    opacity: 0;
+    mix-blend-mode: difference;
+    will-change: transform;
+    transition: opacity 160ms ease;
+  }
+
+  .inner.visible { opacity: 1; }
+
+  // ─── Label inside outer ring ────────────────────────────────
+  .label {
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 200ms ease;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  // ─── Cursor type variants ───────────────────────────────────
+  .type-hover {
+    width: 48px;
+    height: 48px;
+    background: #fff;
+
+    .inner { opacity: 0; }
+  }
+
+  .type-view {
+    width: 76px;
+    height: 76px;
+    background: #fff;
+
+    .label { opacity: 1; }
+    + .inner { opacity: 0; }
+  }
+
+  .type-drag {
+    width: 80px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: #fff;
+
+    .label { opacity: 1; }
+    + .inner { opacity: 0; }
+  }
+
+  .type-hidden {
+    opacity: 0 !important;
+    + .inner { opacity: 0 !important; }
+  }
+}
+
+// Touch / non-hover devices: show nothing (native cursor is fine)
+@media not all and (hover: hover) {
+  .outer, .inner { display: none; }
+}

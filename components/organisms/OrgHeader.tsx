@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef, useEffect } from 'react';
 import { contact } from '@/data/contact';
 import { AtomLogo } from '@/components/atoms/AtomLogo';
 import { AtomNavLink } from '@/components/atoms/AtomNavLink';
@@ -13,8 +14,30 @@ interface OrgHeaderProps {
 }
 
 export function OrgHeader({ isMenuOpen = false, onMenuToggle }: OrgHeaderProps) {
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Watch [data-header-dark] sections — flip header color when they enter/leave
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    const darkSections = document.querySelectorAll('[data-header-dark]');
+    if (!darkSections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const anyVisible = entries.some((e) => e.isIntersecting);
+        header.setAttribute('data-theme', anyVisible ? 'dark' : 'light');
+      },
+      { threshold: 0.01 },
+    );
+
+    darkSections.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <header className={styles['nav-container']}>
+    <header ref={headerRef} className={styles['nav-container']} data-theme="light">
       <div className={styles['nav-wrapper']}>
         <div className={`${styles.logo} ${styles['interactive-element']}`}>
           <AtomLogo />

@@ -1,0 +1,10 @@
+.tpl-page {
+  width: 100%;
+  min-height: 100svh;
+  position: relative;
+  padding-top: var(--nav-height);
+}
+
+.full-bleed {
+  padding-top: 0;
+}

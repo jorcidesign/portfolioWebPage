@@ -1,22 +1,28 @@
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
+import { LenisProvider } from '@/providers/LenisProvider';
+import { CursorProvider } from '@/providers/CursorProvider';
+import { TransitionProvider } from '@/providers/TransitionProvider';
 import { ClientLayout } from './ClientLayout';
 import './globals.scss';
-import { SmoothScroll } from '@/components/SmoothScroll';
 
 export const metadata: Metadata = {
   title: 'Jorge Del Aguila — Full Stack Developer',
   description:
-    "I'm a passionate software engineer building scalable web applications.",
+    'Full Stack Developer from Lima, Peru. Building scalable web and mobile applications with React, Next.js, and Node.js.',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <SmoothScroll>
-          <ClientLayout>{children}</ClientLayout>
-        </SmoothScroll>
+        <LenisProvider>
+          <TransitionProvider>
+            <CursorProvider>
+              <ClientLayout>{children}</ClientLayout>
+            </CursorProvider>
+          </TransitionProvider>
+        </LenisProvider>
       </body>
     </html>
   );

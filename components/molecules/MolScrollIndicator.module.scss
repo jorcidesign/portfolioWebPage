@@ -1,0 +1,50 @@
+.mol-scroll-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.label {
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-ink-60);
+}
+
+// ─── Down ─────────────────────────────────────────────
+.dir-down {
+  flex-direction: column;
+
+  .line {
+    display: block;
+    width: 1px;
+    height: 56px;
+    background: var(--color-ink-40);
+    transform-origin: top center;
+    animation: pulse-down 1.8s ease-in-out infinite;
+  }
+}
+
+// ─── Right ────────────────────────────────────────────
+.dir-right {
+  flex-direction: row;
+
+  .line {
+    display: block;
+    width: 56px;
+    height: 1px;
+    background: var(--color-ink-40);
+    transform-origin: left center;
+    animation: pulse-right 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse-down {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(0.55); }
+}
+
+@keyframes pulse-right {
+  0%, 100% { opacity: 0.3; transform: scaleX(1); }
+  50% { opacity: 1; transform: scaleX(0.55); }
+}

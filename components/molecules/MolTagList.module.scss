@@ -1,0 +1,32 @@
+.mol-tag-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-full);
+  color: var(--color-ink-60);
+  white-space: nowrap;
+}
+
+.size-sm .tag {
+  padding: 0.18em 0.7em;
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-wide);
+}
+
+.size-md .tag {
+  padding: 0.3em 1em;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-normal);
+}
+
+.theme-dark .tag {
+  border-color: var(--color-rule-inv);
+  color: var(--color-ink-inv-40);
+}

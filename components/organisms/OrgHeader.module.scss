@@ -10,9 +10,15 @@ $header-nav-gap: 0.15rem;
   width: 100%;
   height: var(--nav-height);
   z-index: var(--z-nav);
-  color: #ffffff;
-  mix-blend-mode: difference;
+  // Default: dark text on light sections
+  color: var(--color-ink);
+  transition: color 500ms var(--ease-out);
   pointer-events: none;
+
+  // Flips to light when a [data-header-dark] section is in view
+  &[data-theme="dark"] {
+    color: var(--color-bg);
+  }
 }
 
 .nav-wrapper {
