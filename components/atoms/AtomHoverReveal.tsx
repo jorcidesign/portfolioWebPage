@@ -19,7 +19,7 @@ precision highp float;
 varying vec2 vU;
 uniform sampler2D uA,uB;
 uniform vec2 uM;
-uniform float uT,uSz,uSt,uSw,uGr,uReveal,uAsp;
+uniform float uT,uSz,uSt,uSw,uGr,uReveal,uAsp,uAspA,uAspB;
 
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float noise(vec2 p){
@@ -33,6 +33,11 @@ float fbm(vec2 p){
   return v;
 }
 
+vec2 coverUV(vec2 uv,float ca,float ia){
+  if(ca>ia){return vec2(uv.x,(uv.y-.5)*(ia/ca)+.5);}
+  return vec2((uv.x-.5)*(ca/ia)+.5,uv.y);
+}
+
 void main(){
   vec2 uv=vU;
   vec2 asp=vec2(uAsp,1.);
@@ -41,21 +46,21 @@ void main(){
   float dist=length(d);
   float t=uT*.3;
   float ang=atan(d.y,d.x);
-  float swirl=uSw*.002*exp(-dist*4.)*sin(ang*3.+t*2.);
+  float swirl=uSw*.002*exp(-dist*3.)*sin(ang*3.+t*2.);
   vec2 swirlOff=vec2(cos(ang+swirl),sin(ang+swirl))*dist-d;
   vec2 wUv=(uv+swirlOff*.25)*3.+t*.15;
-  float warp=fbm(wUv)*.18+fbm(wUv*2.1-t*.1)*.07;
+  float warp=fbm(wUv)*.22+fbm(wUv*2.1-t*.1)*.10;
   float grainN=fbm(uv*18.+t*.5);
   float grainEdge=uGr*.008*grainN;
   float sz=uSz*.001;
   float r=sz;
-  float edge=0.035+warp*.4+grainEdge;
+  float edge=0.04+warp*.5+grainEdge;
   float raw=dist-warp-grainEdge;
   float mask=smoothstep(r,r-edge,raw)*uReveal;
   mask=clamp(mask,0.,1.);
   mask=pow(mask,1./(uSt*.05+.01));
-  vec4 colA=texture2D(uA,uv);
-  vec4 colB=texture2D(uB,uv);
+  vec4 colA=texture2D(uA,coverUV(uv,uAsp,uAspA));
+  vec4 colB=texture2D(uB,coverUV(uv,uAsp,uAspB));
   gl_FragColor=mix(colA,colB,mask);
 }
 `;
@@ -123,6 +128,8 @@ export function AtomHoverReveal({ srcA, srcB }: AtomHoverRevealProps) {
     const uGr = g.getUniformLocation(prog, 'uGr');
     const uRev = g.getUniformLocation(prog, 'uReveal');
     const uAsp = g.getUniformLocation(prog, 'uAsp');
+    const uAspA = g.getUniformLocation(prog, 'uAspA');
+    const uAspB = g.getUniformLocation(prog, 'uAspB');
     const uA = g.getUniformLocation(prog, 'uA');
     const uB = g.getUniformLocation(prog, 'uB');
 
@@ -139,6 +146,8 @@ export function AtomHoverReveal({ srcA, srcB }: AtomHoverRevealProps) {
 
     let texA: WebGLTexture | null = null;
     let texB: WebGLTexture | null = null;
+    let aspectA = 1.0;
+    let aspectB = 1.0;
     let loaded = 0;
 
     function makeFallback(r: number, g: number, b: number, label: string) {
@@ -166,21 +175,32 @@ export function AtomHoverReveal({ srcA, srcB }: AtomHoverRevealProps) {
     }
 
     loadImg(srcA, (img) => {
-      texA = img ? makeTex(img) : makeFallback(40, 45, 55, 'PORTRAIT');
+      if (img) {
+        aspectA = img.naturalWidth / img.naturalHeight;
+        texA = makeTex(img);
+      } else {
+        texA = makeFallback(40, 45, 55, 'PORTRAIT');
+      }
       loaded++;
     });
     loadImg(srcB, (img) => {
-      texB = img ? makeTex(img) : makeFallback(10, 10, 18, 'BLUEPRINT');
+      if (img) {
+        aspectB = img.naturalWidth / img.naturalHeight;
+        texB = makeTex(img);
+      } else {
+        texB = makeFallback(10, 10, 18, 'BLUEPRINT');
+      }
       loaded++;
     });
 
     const state = stateRef.current;
-    const params = { sz: 28, st: 6, sw: 20, gr: 3, rt: 30 };
+    const params = { sz: 100, st: 8, sw: 28, gr: 4, rt: 30 };
 
     const onMove = (e: MouseEvent) => {
       const r = container.getBoundingClientRect();
       state.mouse.x = (e.clientX - r.left) / r.width;
-      state.mouse.y = 1 - (e.clientY - r.top) / r.height;
+      // UV.y = 0 at top, 1 at bottom — matches screen Y direction without flip
+      state.mouse.y = (e.clientY - r.top) / r.height;
       state.isHover = true;
       if (state.returnTimer) { clearTimeout(state.returnTimer); state.returnTimer = null; }
       state.targetReveal = 1;
@@ -221,6 +241,8 @@ export function AtomHoverReveal({ srcA, srcB }: AtomHoverRevealProps) {
       g.uniform1f(uGr, params.gr);
       g.uniform1f(uRev, state.reveal);
       g.uniform1f(uAsp, w / h);
+      g.uniform1f(uAspA, aspectA);
+      g.uniform1f(uAspB, aspectB);
 
       if (texA) { g.activeTexture(g.TEXTURE0); g.bindTexture(g.TEXTURE_2D, texA); g.uniform1i(uA, 0); }
       if (texB) { g.activeTexture(g.TEXTURE1); g.bindTexture(g.TEXTURE_2D, texB); g.uniform1i(uB, 1); }
