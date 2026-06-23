@@ -3,6 +3,7 @@
 import { useRef, useEffect, useMemo } from 'react';
 import { about } from '@/data/about';
 import { AtomCreativeHeading } from '@/components/atoms/AtomCreativeHeading';
+import { AtomHoverReveal } from '@/components/atoms/AtomHoverReveal';
 import styles from './OrgHeroSection.module.scss';
 
 export function OrgHeroSection() {
@@ -62,17 +63,15 @@ export function OrgHeroSection() {
           </div>
         </div>
 
-        <figure
+        <div
           className={`${styles['hero__image']} ${styles['reveal-curtain']}`}
           style={{ '--delay': '200ms' } as React.CSSProperties}
         >
-          <img
-            src={about.hero.image}
-            alt={about.hero.title}
-            loading="eager"
-            decoding="async"
+          <AtomHoverReveal
+            srcA={about.hero.image}
+            srcB={about.hero.scanImage}
           />
-        </figure>
+        </div>
 
         <div className={styles['hero__location']}>
           {about.hero.location}
