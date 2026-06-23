@@ -8,7 +8,7 @@ export const about = {
       "SCALABLE WEB APPLICATIONS FOR ALL SIZES.",
     ],
     image:
-      "https://res.cloudinary.com/dhlkqt62w/image/upload/v1782146361/jorgeDelAguila_e5xu0h.jpg",
+      "https://res.cloudinary.com/dhlkqt62w/image/upload/v1782185954/acc48b81-dcbf-4d93-9913-57e8c0226082.png",
     scanImage:
       "https://res.cloudinary.com/dhlkqt62w/image/upload/v1782185988/scanJorge_krhl1v.png",
   },

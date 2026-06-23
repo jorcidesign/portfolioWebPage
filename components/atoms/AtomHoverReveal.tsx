@@ -11,7 +11,7 @@ interface AtomHoverRevealProps {
 const VERTEX_SHADER = `
 attribute vec2 a;
 varying vec2 vU;
-void main(){vU=a*.5+.5;gl_Position=vec4(a,0,1);}
+void main(){vU=vec2(a.x*.5+.5,.5-a.y*.5);gl_Position=vec4(a,0,1);}
 `;
 
 const FRAGMENT_SHADER = `
